@@ -173,13 +173,25 @@ details p{color:var(--muted);padding-bottom:22px;max-width:65ch}
 
 /* Join banner */
 .join{position:relative;border-radius:6px;overflow:hidden;min-height:420px;display:grid;align-items:end}
+.join::after{z-index:0}
 .join img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.join::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(18,19,25,.82),rgba(18,19,25,.1) 70%)}
+.join::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(18,19,25,.88),rgba(18,19,25,.35) 75%)}
 .join-body{position:relative;z-index:1;padding:clamp(24px,5vw,56px);display:grid;gap:16px;color:#fff;max-width:720px}
 .join-body .eyebrow{color:var(--gold-soft)}
 .join-body p{color:rgba(255,255,255,.86);font-size:18px}
 .join .btn-ghost{color:#fff;border-color:#fff}
 .join .btn-ghost:hover{background:#fff;color:var(--ink)}
+.join-form{display:grid;grid-template-columns:1fr 1fr;gap:12px 14px;background:rgba(255,255,255,.96);color:var(--ink);border-radius:6px;padding:clamp(16px,3vw,24px)}
+.join-form .field{display:grid;gap:4px;min-width:0}
+.join-form label{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.join-form .req{color:var(--red);letter-spacing:.06em}
+.join-form input{font:inherit;font-size:16px;padding:11px 12px;border:1px solid var(--line);border-radius:4px;background:#fff;color:var(--ink);width:100%}
+.join-form input:focus{outline:2px solid var(--red);outline-offset:1px;border-color:transparent}
+.join-form button{grid-column:1 / -1;justify-self:start}
+.join-form .form-note{grid-column:1 / -1;color:var(--muted)!important;font-size:14px!important}
+.join-form .form-note a{color:var(--red)}
+.join-form .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+@media (max-width:620px){.join-form{grid-template-columns:1fr}}
 
 footer{border-top:1px solid var(--line);padding-block:36px;color:var(--muted);font-size:14px}
 footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px}
@@ -400,10 +412,23 @@ footer .brand{font-size:20px}
       <div class="join-body">
         <p class="eyebrow">Founding membership</p>
         <h2>Roll with the Solo Dolo Club.</h2>
-        <p>Founding spots open soon. Follow @DaClassicLady to hear first, and drop your ride and your favorite driving song in the comments.</p>
-        <div class="cta-row" style="margin-top:6px">
-          <a class="btn btn-solid" href="https://www.youtube.com/@DaClassicLady?sub_confirmation=1" target="_blank" rel="noopener">Subscribe on YouTube</a>
-          <a class="btn btn-ghost" href="https://www.instagram.com/daclassiclady/" target="_blank" rel="noopener">Follow on Instagram</a>
+        <p>Founding spots open soon. Leave your email and you'll be first to hear about membership, Solo Together nights and merch drops.</p>
+        <form class="join-form" id="join-form" action="https://formsubmit.co/daclassiclady@gmail.com" method="POST">
+          <input type="hidden" name="_subject" value="New Solo Dolo Club sign-up">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_next" value="https://daclassiclady.com/thanks.html">
+          <input type="hidden" name="_autoresponse" value="Thanks for joining DaClassicLady's Solo Dolo Car Club! You're on the list for founding membership, Solo Together cruise nights and merch drops. Drive safe, and turn the music up.">
+          <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <div class="field"><label for="jf-name">Name or handle</label><input id="jf-name" name="name" type="text" autocomplete="nickname" placeholder="What should we call you?"></div>
+          <div class="field"><label for="jf-email">Email <span class="req">required</span></label><input id="jf-email" name="email" type="email" required autocomplete="email" placeholder="you@example.com"></div>
+          <div class="field"><label for="jf-ride">Your ride</label><input id="jf-ride" name="ride" type="text" placeholder="Year, make, model"></div>
+          <div class="field"><label for="jf-song">Favorite driving song</label><input id="jf-song" name="song" type="text" placeholder="Artist, song"></div>
+          <button class="btn btn-solid" type="submit">Join the club</button>
+          <p class="form-note">We only use your email for club updates. No location needed. See our <a href="privacy.html">Privacy Policy</a>.</p>
+        </form>
+        <div class="cta-row" style="margin-top:2px">
+          <a class="btn btn-ghost btn-sm" href="https://www.youtube.com/@DaClassicLady?sub_confirmation=1" target="_blank" rel="noopener">Subscribe on YouTube</a>
+          <a class="btn btn-ghost btn-sm" href="https://www.instagram.com/daclassiclady/" target="_blank" rel="noopener">Follow on Instagram</a>
         </div>
       </div>
     </div>
