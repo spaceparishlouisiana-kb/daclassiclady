@@ -434,7 +434,12 @@ function card(v, wide) {
   const url = wide ? "https://www.youtube.com/watch?v=" + v.id : "https://www.youtube.com/shorts/" + v.id;
   const a = document.createElement("a");
   a.className = "short" + (wide ? " wide" : ""); a.href = url; a.target = "_blank"; a.rel = "noopener";
-  a.innerHTML = '<div class="short-frame"><img alt="" loading="lazy" src="https://i.ytimg.com/vi/' + v.id + '/hqdefault.jpg" onerror="this.remove()"><span class="play" aria-hidden="true"></span></div><span class="short-title"></span><span class="short-meta"></span>';
+  a.innerHTML = '<div class="short-frame"><img alt="" referrerpolicy="no-referrer" decoding="async"><span class="play" aria-hidden="true"></span></div><span class="short-title"></span><span class="short-meta"></span>';
+  /* Cover image: try YouTube's two image servers, then hide the image if both are blocked */
+  const thumbs = ["https://i.ytimg.com/vi/" + v.id + "/hqdefault.jpg", "https://img.youtube.com/vi/" + v.id + "/hqdefault.jpg", "https://i.ytimg.com/vi/" + v.id + "/mqdefault.jpg"];
+  const img = a.querySelector("img"); let t = 0;
+  img.onerror = () => { t++; if (t < thumbs.length) img.src = thumbs[t]; else img.remove(); };
+  img.src = thumbs[0];
   a.querySelector(".short-title").textContent = v.title;
   a.querySelector(".short-meta").textContent = v.meta;
   if (LIVE) a.addEventListener("click", e => {
